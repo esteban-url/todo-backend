@@ -16,6 +16,25 @@ app.get("/", async (req, res) => {
   const todos = await prisma.todo.findMany()
   res.json(todos)
 })
+app.get("/t/:tenant/:list", async (req, res) => {
+  const { tenant, list } = req.params
+  const todos = await prisma.todo.findMany({
+    where: {
+      list: list,
+      tenant: tenant,
+    },
+  })
+  res.json(todos)
+})
+app.get("/t/:tenant/", async (req, res) => {
+  const { tenant } = req.params
+  const todos = await prisma.todo.findMany({
+    where: {
+      tenant: tenant,
+    },
+  })
+  res.json(todos)
+})
 
 app.get("/:id", async (req, res) => {
   const { id } = req.params
@@ -38,6 +57,7 @@ app.post("/", async (req, res) => {
   })
   res.json(result)
 })
+
 const update = async (req, res) => {
   const { id } = req.params
   const todo = await prisma.todo.update({
@@ -51,8 +71,23 @@ const update = async (req, res) => {
 app.patch("/:id", (req, res) => update(req, res))
 app.put("/:id", (req, res) => update(req, res))
 
-app.delete("/", async (req, res) => {
-  const todo = await prisma.todo.deleteMany()
+app.delete("/t/:tenant", async (req, res) => {
+  const { tenant } = req.params
+  const todo = await prisma.todo.deleteMany({
+    where: {
+      tenant: tenant,
+    },
+  })
+  res.json(todo)
+})
+app.delete("/t/:tenant/:list", async (req, res) => {
+  const { tenant, list } = req.params
+  const todo = await prisma.todo.deleteMany({
+    where: {
+      tenant: tenant,
+      list: list,
+    },
+  })
   res.json(todo)
 })
 app.delete("/:id", async (req, res) => {
