@@ -8,7 +8,12 @@ const app = express()
 app.use(bodyParser.json())
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "Content-Type")
+  res.header("Access-Control-Allow-Methods", "*")
+
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  )
   next()
 })
 
@@ -100,7 +105,7 @@ app.delete("/:id", async (req, res) => {
   res.json(todo)
 })
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3030
 const server = app.listen(port, () =>
   console.log(`🚀 Server ready at: http://localhost:${port}`)
 )
