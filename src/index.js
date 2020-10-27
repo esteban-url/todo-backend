@@ -11,6 +11,48 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Headers", "Content-Type")
   next()
 })
+const ddd = [
+  {
+    id: 24,
+    createdAt: "2020-10-27T03:12:17.474Z",
+    tenant: "anonymous",
+    title: "clean room 3",
+    list: "main",
+    completed: false,
+  },
+  {
+    id: 25,
+    createdAt: "2020-10-27T03:12:22.686Z",
+    tenant: "anonymous",
+    title: "clean room 2",
+    list: "main",
+    completed: false,
+  },
+  {
+    id: 26,
+    createdAt: "2020-10-27T03:13:22.304Z",
+    tenant: "esteban",
+    title: "test 2",
+    list: "main",
+    completed: false,
+  },
+  {
+    id: 27,
+    createdAt: "2020-10-27T03:13:36.845Z",
+    tenant: "esteban",
+    title: "test 1",
+    list: "main",
+    completed: false,
+  },
+  {
+    id: 28,
+    createdAt: "2020-10-27T03:14:34.189Z",
+    tenant: "esteban",
+    title: "start the consolidation",
+    list: "work",
+    completed: false,
+  },
+]
 
 app.get("/", async (req, res) => {
   const todos = await prisma.todo.findMany()
